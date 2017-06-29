@@ -1,6 +1,7 @@
 // External Lib Imports
 let React = require('react');
 let PropTypes = require('prop-types');
+let Link = require('react-router-dom').Link;
 
 class PlayerInput extends React.Component {
   constructor(props) {
@@ -57,6 +58,26 @@ class PlayerInput extends React.Component {
   }
 }
 
+function PlayerPreview(props) {
+  return(
+      <div>
+        <div className="player-preview">
+          <img
+            className="avatar"
+            src={props.avatar}
+            alt={'Avatar for ' + props.username}
+          />
+          <h2>@{props.username}</h2>
+          <button
+            onClick={props.onReset.bind(null, props.id)}
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+  )
+}
+
 // Main Exported Component
 class Battle extends React.Component {
   constructor(props) {
@@ -64,10 +85,12 @@ class Battle extends React.Component {
     this.state = {
       playerOneName: '',
       playerTwoName: '',
-      playerOneAvatar: '',
-      playerTwoAvatar: ''
-    }
+      playerOneAvatar: null,
+      playerTwoAvatar: null
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleSubmit(id, username) {
@@ -77,27 +100,73 @@ class Battle extends React.Component {
       newState[id + 'Avatar'] = 'https://github.com/'
         + username + '.png?size=200';
       return newState;
-    })
+    });
+  }
+
+  handleReset(id) {
+    this.setState(function() {
+        let newState = {};
+        newState[id + 'Name'] = '';
+        newState[id + 'Avatar'] = null;
+        return newState;
+    });
   }
 
   render() {
+    let match = this.props.match;
+    let playerOneName = this.state.playerOneName;
+    let playerTwoName = this.state.playerTwoName;
+    let playerOneAvatar = this.state.playerOneAvatar;
+    let playerTwoAvatar = this.state.playerTwoAvatar;
     return(
       <div>
         <div className="battle-container">
-          {!this.state.playerOneName
+          {!playerOneName
             && <PlayerInput
             id='playerOne'
             label='Player One'
             onSubmit={this.handleSubmit}
           />}
 
-          {!this.state.playerTwoName
+          {playerOneAvatar!==null &&
+            <PlayerPreview
+              avatar={playerOneAvatar}
+              username={playerOneName}
+              id='playerOne'
+              onReset={this.handleReset}
+            />
+          }
+
+          {!playerTwoName
             && <PlayerInput
             id='playerTwo'
             label='Player Two'
             onSubmit={this.handleSubmit}
           />}
+
+          {playerTwoAvatar!==null &&
+          <PlayerPreview
+              avatar={playerTwoAvatar}
+              username={playerTwoName}
+              id='playerTwo'
+              onReset={this.handleReset}
+          />
+          }
         </div>
+        {playerOneAvatar && playerTwoAvatar &&
+          <Link
+            className="button"
+            to={{
+              pathname: match.url + '/results',
+              search:`?playerOneName=` + playerOneName + `&playerTwoName=`
+                + playerTwoName
+            }}
+          >
+            <button>
+              Battle!
+            </button>
+          </Link>
+        }
       </div>
     );
   }
@@ -108,6 +177,13 @@ PlayerInput.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired
-}
+};
+
+PlayerPreview.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onReset: PropTypes.func.isRequired
+};
 
 module.exports = Battle;

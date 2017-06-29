@@ -1,6 +1,6 @@
 // External Lib Imports
 let React = require('react');
-var NavLink = require('react-router-dom').NavLink;
+let NavLink = require('react-router-dom').NavLink;
 
 function Nav() {
   return(

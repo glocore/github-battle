@@ -1,12 +1,13 @@
 // External Lib Imports
-var React = require('react');
-var PropTypes = require('prop-types');
+let React = require('react');
+let PropTypes = require('prop-types');
 
 // Project Imports
-var api = require('../utils/api');
+let api = require('../utils/api');
+let Loading = require('./Loading');
 
 function SelectLanguage(props) {
-  var languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
+  let languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
 
   return (
       <ul className="languages">
@@ -35,7 +36,7 @@ function RepoGrid(props) {
               <div className="popular-item__avatar-container">
                 <div className="popular-item__rank">Rank #{index + 1}</div>
                 <img
-                  className="popular-item__avatar"
+                  className="avatar"
                   src={repo.owner.avatar_url}
                   alt={'Avatar for ' + repo.owner.login}
                 />
@@ -102,7 +103,7 @@ class Popular extends React.Component {
         />
         {
           !this.state.repos
-            ? <p>Loading</p>
+            ? <Loading/>
             : <RepoGrid repos={this.state.repos} />
         }
       </div>

@@ -24,6 +24,7 @@ li {
 }
 
 a {
+  color: steelblue;
   text-decoration: none;
 }
 
@@ -56,6 +57,18 @@ button {
   margin: 10px auto;
 }
 
+.avatar {
+  height: 130px;
+  /*margin-bottom: 7px;*/
+  border-radius: 50%;
+}
+
+/*Loading*/
+.loading {
+  text-align: center;
+  font-size: 30px;
+}
+
 /*Battle*/
 .battle-container {
     display: flex;
@@ -68,7 +81,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 500px;
 }
 
 .battle-player__header {
@@ -84,6 +97,78 @@ button {
   border: 1px solid rgba(0,0,0,.43);
   border-radius: 3px;
   font-size: 16px;
+}
+
+.player-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Results*/
+.results-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.results-player__container {
+  display: grid;
+  grid-template: 10% 90% / 50% 50%;
+  min-width: 300px;
+  margin: 20px;
+  padding: 20px;
+  transition: background-color 0.3s;
+}
+
+.results-player__container:hover {
+  background-color: #DCDCDC;
+}
+
+.results-player__avatar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-player__label {
+  grid-area: 1 / 1 / span 1 / span 2;
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: lighter;
+}
+
+.results-player__handle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.results-player__score {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.results-player__avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-area: 2 / 1 / span 1 / span 1;
+  margin-bottom: 0;
+}
+
+.results-player__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  grid-area: 2 / 2 / span 1 / span 1;
+  min-width: 210px;
+  padding: 0 20px;
+  margin: 0;
 }
 
 /* Popular */
@@ -112,12 +197,12 @@ button {
   width: 300px;
   margin: 20px;
   padding: 20px;
-  background-color: silver;
+  /*background-color: silver;*/
   transition: background-color 0.3s;
 }
 
 .popular-item:hover {
-  background-color: lightgrey;
+  background-color: #DCDCDC;
 }
 
 .popular-item__avatar-container {
@@ -128,12 +213,6 @@ button {
 
 .popular-item__rank {
   padding-bottom: 20px;
-}
-
-.popular-item__avatar {
-  height: 130px;
-  border-radius: 50%;
-  margin-bottom: 7px;
 }
 
 .popular-item__details {

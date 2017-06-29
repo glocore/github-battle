@@ -7,6 +7,7 @@ let Nav = require('./Nav');
 let Home = require('./Home');
 let Battle = require('./Battle');
 let Popular = require('./Popular');
+let Results = require('./Results');
 
 let Router = ReactRouter.BrowserRouter;
 let Route = ReactRouter.Route;
@@ -20,7 +21,8 @@ class App extends React.Component {
           <Nav/>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/battle" component={Battle} />
+            <Route exact path="/battle" component={Battle} />
+            <Route path="/battle/results" component={Results} />
             <Route path="/popular" component={Popular} />
             <Route render={function() {
               return(<p>Not Found</p>)
